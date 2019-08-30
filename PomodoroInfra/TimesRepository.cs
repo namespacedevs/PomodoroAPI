@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PomodoroDomain;
@@ -29,10 +30,32 @@ namespace PomodoroInfra
             _context.SaveChanges();
         }
 
+        public void Add(TimeAmountCmd amount)
+        {
+            var newAmount = new TimeAmount
+            {
+                Lenght = new TimeSpan(0, amount.Lenght, 0),
+                Type = (ETimeType) amount.Type
+            };
+
+            Add(newAmount);
+        }
+
         public void Update(TimeAmount amount)
         {
             _context.Times.Update(amount);
             _context.SaveChanges();
+        }
+
+        public void Update(TimeAmountCmd amount)
+        {
+            var newAmount = new TimeAmount
+            {
+                Lenght = new TimeSpan(0, amount.Lenght, 0),
+                Type = (ETimeType) amount.Type
+            };
+
+            Update(newAmount);
         }
 
         public void Remove(int id)

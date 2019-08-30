@@ -30,13 +30,13 @@ namespace PomodoroApi.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] TimeAmount amount)
+        public void Post([FromBody] TimeAmountCmd amount)
         {
             _timesRepository.Add(amount);
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] TimeAmount amount)
+        public void Put([FromBody] TimeAmountCmd amount)
         {
             _timesRepository.Update(amount);
         }
