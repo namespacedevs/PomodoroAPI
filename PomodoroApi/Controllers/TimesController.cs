@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PomodoroDomain;
+using PomodoroDomain.Commands;
 using PomodoroInfra;
 
 namespace PomodoroApi.Controllers
@@ -17,10 +18,10 @@ namespace PomodoroApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ICollection<TimeAmount>> Get()
+        public ActionResult<ICollection<TimeAmountDto>> Get()
         {
             var data = _timesRepository.GetAll();
-            return new ActionResult<ICollection<TimeAmount>>(data);
+            return new ActionResult<ICollection<TimeAmountDto>>(data);
         }
 
         [HttpGet("{id}")]
@@ -30,19 +31,19 @@ namespace PomodoroApi.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] TimeAmountCmd amount)
+        public void Post([FromBody] TimeAmountAddCmd amountAdd)
         {
-            _timesRepository.Add(amount);
+            _timesRepository.Add(amountAdd);
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] TimeAmountCmd amount)
+        public void Put([FromBody] TimeAmountUpdateCmd amountAdd)
         {
-            _timesRepository.Update(amount);
+            _timesRepository.Update(amountAdd);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete([FromRoute] int id)
         {
             _timesRepository.Remove(id);
         }

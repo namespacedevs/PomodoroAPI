@@ -1,22 +1,25 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using PomodoroDomain;
+using PomodoroDomain.Commands;
 
 namespace PomodoroInfra
 {
     public class TimesRepository
     {
+        private readonly TimeAmountHandler _commandHandler;
         private readonly PomodoroContext _context;
 
         public TimesRepository()
         {
             _context = new PomodoroContext();
+            _commandHandler = new TimeAmountHandler();
         }
 
-        public ICollection<TimeAmount> GetAll()
+        public ICollection<TimeAmountDto> GetAll()
         {
-            return _context.Times.ToList();
+            return _context.Times
+                .Select(amount => new TimeAmountDto(amount)).ToList();
         }
 
         public TimeAmount GetById(int id)
@@ -30,14 +33,9 @@ namespace PomodoroInfra
             _context.SaveChanges();
         }
 
-        public void Add(TimeAmountCmd amount)
+        public void Add(TimeAmountAddCmd amountAdd)
         {
-            var newAmount = new TimeAmount
-            {
-                Lenght = new TimeSpan(0, amount.Lenght, 0),
-                Type = (ETimeType) amount.Type
-            };
-
+            var newAmount = _commandHandler.Handle(amountAdd);
             Add(newAmount);
         }
 
@@ -47,14 +45,9 @@ namespace PomodoroInfra
             _context.SaveChanges();
         }
 
-        public void Update(TimeAmountCmd amount)
+        public void Update(TimeAmountUpdateCmd amountUpdate)
         {
-            var newAmount = new TimeAmount
-            {
-                Lenght = new TimeSpan(0, amount.Lenght, 0),
-                Type = (ETimeType) amount.Type
-            };
-
+            var newAmount = _commandHandler.Handle(amountUpdate);
             Update(newAmount);
         }
 
@@ -64,6 +57,7 @@ namespace PomodoroInfra
             {
                 var time = _context.Times.FirstOrDefault(amount => amount.Id == id);
                 _context.Times.Remove(time);
+                _context.SaveChanges();
             }
         }
     }

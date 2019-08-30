@@ -1,9 +1,12 @@
+using System;
+
 namespace PomodoroDomain
 {
+    [Flags]
     public enum ETimeType
     {
-        ShortBreak,
-        LongBreak,
-        WorkTime
+        ShortBreak = 1,
+        LongBreak = 2,
+        WorkTime = 3
     }
 }
