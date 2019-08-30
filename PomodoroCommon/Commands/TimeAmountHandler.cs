@@ -1,13 +1,15 @@
 using System;
 using System.Linq;
+using PomodoroApi.Commands;
+using PomodoroDomain;
 
-namespace PomodoroDomain.Commands
+namespace PomodoroCommom.Commands
 {
     public class TimeAmountHandler
     {
         private static readonly ETimeType[] _AlowedTypes =
             {ETimeType.LongBreak, ETimeType.ShortBreak, ETimeType.WorkTime};
-        
+
         public TimeAmount Handle(TimeAmountAddCmd command)
         {
             if (command.Lenght <= 0 || _AlowedTypes.All(allowed => allowed != command.Type))

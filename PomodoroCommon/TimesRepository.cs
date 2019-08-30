@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
+using PomodoroApi.Commands;
+using PomodoroCommom.Commands;
 using PomodoroDomain;
-using PomodoroDomain.Commands;
 
 namespace PomodoroInfra
 {
-    public class ScheduleRepository
+    public class TimesRepository
     {
-        private readonly ICommandHandler<ICommand> _commandHandler;
+        private readonly TimeAmountHandler _commandHandler;
         private readonly PomodoroContext _context;
 
-        public ScheduleRepository()
+        public TimesRepository()
         {
             _context = new PomodoroContext();
-            _commandHandler = new ScheduleHandler();
+            _commandHandler = new TimeAmountHandler();
         }
 
         public ICollection<TimeAmountDto> GetAll()

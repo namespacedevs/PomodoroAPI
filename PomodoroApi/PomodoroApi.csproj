@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PomodoroCommon\PomodoroCommon.csproj" />
       <ProjectReference Include="..\PomodoroDomain\PomodoroDomain.csproj" />
       <ProjectReference Include="..\PomodoroInfra\PomodoroInfra.csproj" />
     </ItemGroup>

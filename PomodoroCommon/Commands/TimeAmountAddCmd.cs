@@ -1,4 +1,6 @@
-namespace PomodoroDomain.Commands
+using PomodoroDomain;
+
+namespace PomodoroCommom.Commands
 {
     public class TimeAmountAddCmd
     {

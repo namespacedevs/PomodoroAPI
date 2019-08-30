@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using PomodoroApi.Commands;
+using PomodoroCommom.Commands;
 using PomodoroDomain;
-using PomodoroDomain.Commands;
 using PomodoroInfra;
 
 namespace PomodoroApi.Controllers
