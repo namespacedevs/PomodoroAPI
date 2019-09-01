@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using PomodoroApi.Commands;
 using PomodoroDomain;
 
 namespace PomodoroCommom.Commands

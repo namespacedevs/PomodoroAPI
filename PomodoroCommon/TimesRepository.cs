@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using PomodoroApi.Commands;
 using PomodoroCommom.Commands;
 using PomodoroDomain;
+using PomodoroInfra;
 
-namespace PomodoroInfra
+namespace PomodoroCommom
 {
     public class TimesRepository
     {

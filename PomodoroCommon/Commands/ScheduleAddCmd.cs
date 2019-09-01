@@ -1,7 +1,9 @@
-namespace PomodoroApi.Commands
+using System.Collections.Generic;
+
+namespace PomodoroCommom.Commands
 {
     public class ScheduleAddCmd
     {
-        public int[] TimeAmounts { get; set; }
+        public ICollection<ScheduleItemCmd> ItemCmds { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PomodoroApi.Commands;
 using PomodoroCommom.Commands;
 using PomodoroDomain;
+using PomodoroInfra;
 
-namespace PomodoroInfra
+namespace PomodoroCommom
 {
     public class ScheduleRepository
     {
@@ -25,7 +25,7 @@ namespace PomodoroInfra
 
         public Schedule GetById(int id)
         {
-            return _context.Schedules.FirstOrDefault(schedule =>  schedule.Id == id);
+            return _context.Schedules.FirstOrDefault(schedule => schedule.Id == id);
         }
 
         public void Add(Schedule schedule)
@@ -60,6 +60,11 @@ namespace PomodoroInfra
                 _context.Schedules.Remove(sched ?? throw new Exception("Item does not exists"));
                 _context.SaveChanges();
             }
+        }
+
+        public TimeAmount GetNow(int scheduleId)
+        {
+            return _context.Times.FirstOrDefault(amount => amount.Schedule.Id == scheduleId);
         }
     }
 }

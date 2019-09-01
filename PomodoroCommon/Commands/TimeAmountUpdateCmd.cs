@@ -1,6 +1,6 @@
 using PomodoroDomain;
 
-namespace PomodoroApi.Commands
+namespace PomodoroCommom.Commands
 {
     public class TimeAmountUpdateCmd
     {

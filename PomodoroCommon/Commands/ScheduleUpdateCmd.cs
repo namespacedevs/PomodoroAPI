@@ -1,8 +1,10 @@
-namespace PomodoroApi.Commands
+using System.Collections.Generic;
+
+namespace PomodoroCommom.Commands
 {
     public class ScheduleUpdateCmd
     {
         public int Id { get; set; }
-        public int[] TimeAmounts { get; set; }
+        public ICollection<ScheduleItemCmd> ItemCmds { get; set; }
     }
 }

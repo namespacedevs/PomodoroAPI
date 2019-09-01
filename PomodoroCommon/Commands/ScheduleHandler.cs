@@ -1,28 +1,40 @@
-using PomodoroApi.Commands;
+using System.Linq;
 using PomodoroDomain;
-using PomodoroInfra;
 
 namespace PomodoroCommom.Commands
 {
     public class ScheduleHandler
     {
-        private TimesRepository _timeRepository;
+        private readonly ScheduleRepository _scheduleRepository;
 
         public ScheduleHandler()
         {
-            _timeRepository = new TimesRepository();
+            _scheduleRepository = new ScheduleRepository();
         }
+
         public Schedule Handle(ScheduleAddCmd command)
         {
             return new Schedule
             {
-//                TimeAmounts = _timeRepository.GetRange(command.TimeAmounts);
+                Items = command.ItemCmds.Select(cmd => new ScheduleItem
+                {
+                    OrderNumber = cmd.OrderNumber,
+                    TimeAmountId = cmd.TimeAmountId
+                }).ToList()
             };
         }
-        
+
         public Schedule Handle(ScheduleUpdateCmd command)
         {
-            return new Schedule();
+            var schedule = _scheduleRepository.GetById(command.Id);
+
+            schedule.Items = command.ItemCmds.Select(cmd => new ScheduleItem
+            {
+                OrderNumber = cmd.OrderNumber,
+                TimeAmountId = cmd.TimeAmountId
+            }).ToList();
+
+            return schedule;
         }
     }
 }

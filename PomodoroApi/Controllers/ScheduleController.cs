@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PomodoroCommom;
 
 namespace PomodoroApi.Controllers
 {
@@ -6,11 +7,18 @@ namespace PomodoroApi.Controllers
     [ApiController]
     public class ScheduleController : ControllerBase
     {
+        private readonly ScheduleRepository _scheduleRepository;
+
+        public ScheduleController()
+        {
+            _scheduleRepository = new ScheduleRepository();
+        }
+
         [HttpGet]
         public ActionResult<string> WhereWeAre()
         {
-            
-            return new ActionResult<string>("sdfs");
+            var placeInTime = _scheduleRepository.GetNow(1);
+            return new ActionResult<string>("Stub");
         }
     }
 }
