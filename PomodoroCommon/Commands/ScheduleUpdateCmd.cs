@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PomodoroCommom.Commands
+namespace PomodoroCommon.Commands
 {
     public class ScheduleUpdateCmd
     {

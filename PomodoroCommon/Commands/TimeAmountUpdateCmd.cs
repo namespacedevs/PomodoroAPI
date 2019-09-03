@@ -1,8 +1,8 @@
 using PomodoroDomain;
 
-namespace PomodoroCommom.Commands
+namespace PomodoroCommon.Commands
 {
-    public class TimeAmountUpdateCmd
+    public class TimeAmountUpdateCmd : ICommand
     {
         public int Id { get; set; }
         public int Lenght { get; set; }

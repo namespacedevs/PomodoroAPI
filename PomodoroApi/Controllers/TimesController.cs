@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PomodoroCommom;
-using PomodoroCommom.Commands;
+using PomodoroCommon;
+using PomodoroCommon.Commands;
 using PomodoroDomain;
 
 namespace PomodoroApi.Controllers
@@ -10,24 +11,26 @@ namespace PomodoroApi.Controllers
     [ApiController]
     public class TimesController : ControllerBase
     {
-        private readonly TimesRepository _timesRepository;
+        private readonly IMapper _mapper;
+        private readonly ITimeAmountRepository _timesRepository;
 
-        public TimesController()
+        public TimesController(IMapper mapper, ITimeAmountRepository timeAmountRepository)
         {
-            _timesRepository = new TimesRepository();
+            _timesRepository = timeAmountRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<ICollection<TimeAmountDto>> Get()
         {
-            var data = _timesRepository.GetAll();
+            var data = _timesRepository.GetAllDtos();
             return new ActionResult<ICollection<TimeAmountDto>>(data);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TimeAmount> Get(int id)
+        public ActionResult<TimeAmountDto> Get(int id)
         {
-            return _timesRepository.GetById(id);
+            return _mapper.Map<TimeAmountDto>(_timesRepository.GetById(id));
         }
 
         [HttpPost]

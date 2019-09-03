@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PomodoroCommon;
 
 namespace PomodoroApi
 {
@@ -13,12 +15,24 @@ namespace PomodoroApi
             Configuration = configuration;
         }
 
+        public static IMapper Mapper { get; set; }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // model view controller
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // dependency injection
+//            var httpConfiguration = new HttpConfiguration();
+//            SimpleInjectorInitializer.Initialize(httpConfiguration);
+
+            services.AddMvc();
+            services.AddAutoMapper(typeof(MappingConfiguration));
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<ITimeAmountRepository, TimesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PomodoroCommom.Commands;
+using PomodoroCommon.Commands;
 using PomodoroDomain;
 using PomodoroInfra;
 
-namespace PomodoroCommom
+namespace PomodoroCommon
 {
-    public class ScheduleRepository
+    public class ScheduleRepository : IScheduleRepository
     {
         private readonly ScheduleHandler _commandHandler;
         private readonly PomodoroContext _context;
@@ -46,6 +46,16 @@ namespace PomodoroCommom
             _context.SaveChanges();
         }
 
+        public ICollection<ScheduleDto> GetAllDtos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ScheduleDto GetDtoById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(ScheduleUpdateCmd command)
         {
             var newAmount = _commandHandler.Handle(command);
@@ -59,6 +69,22 @@ namespace PomodoroCommom
                 var sched = _context.Schedules.FirstOrDefault(schedule => schedule.Id == id);
                 _context.Schedules.Remove(sched ?? throw new Exception("Item does not exists"));
                 _context.SaveChanges();
+            }
+        }
+
+        public bool Pause(int Id)
+        {
+            try
+            {
+                var schedule = _context.Schedules.FirstOrDefault(sched => sched.Id == Id);
+                if (schedule != null && schedule.Status == EScheduleStatus.Paused) return true;
+
+                schedule.Status = EScheduleStatus.Paused;
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
 

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using PomodoroDomain;
 
-namespace PomodoroCommom.Commands
+namespace PomodoroCommon.Commands
 {
     public class TimeAmountHandler
     {

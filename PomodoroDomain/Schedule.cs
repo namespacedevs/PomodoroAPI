@@ -8,6 +8,7 @@ namespace PomodoroDomain
     public class Schedule
     {
         [Key] public int Id { get; set; }
+        public EScheduleStatus Status { get; set; }
         [Required] public virtual ICollection<ScheduleItem> Items { get; set; }
     }
 }
